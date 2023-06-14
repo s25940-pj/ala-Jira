@@ -13,7 +13,7 @@ class Ticket
     private DateTime $dateAdded;
     private DateTime $dateClosed;
     private DateTime $deadline;
-    private bool $isClosed = false;
+    private bool $isClosed;
 
     /**
      * @param int $userId

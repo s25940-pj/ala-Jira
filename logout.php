@@ -1,7 +1,9 @@
 <?php
 include "header.php";
 
-if ($userIsLoggedIn) {
+global $USER_IS_LOGGED_IN;
+
+if ($USER_IS_LOGGED_IN) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_logout'])) {
         session_unset();
         session_destroy();

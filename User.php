@@ -1,5 +1,6 @@
 <?php
-
+require_once "Role.php";
+require_once "Department.php";
 
 class User
 {
@@ -8,6 +9,8 @@ class User
     private string $password;
     private string $name;
     private string $surname;
+    private Role $role;
+    private Department $department;
 
     /**
      * @param string $username
@@ -15,14 +18,18 @@ class User
      * @param string $password
      * @param string $name
      * @param string $surname
+     * @param Role $role
+     * @param Department $department
      */
-    public function __construct(string $username, string $email, string $password, string $name, string $surname)
+    public function __construct(string $username, string $email, string $password, string $name, string $surname, Role $role, Department $department)
     {
         $this->username = $username;
         $this->email = $email;
         $this->password = $password;
         $this->name = $name;
         $this->surname = $surname;
+        $this->role = $role;
+        $this->department = $department;
     }
 
     /**
@@ -103,6 +110,38 @@ class User
     public function setSurname(string $surname): void
     {
         $this->surname = $surname;
+    }
+
+    /**
+     * @return Role
+     */
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function setRole(Role $role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return Department
+     */
+    public function getDepartment(): Department
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param Department $department
+     */
+    public function setDepartment(Department $department): void
+    {
+        $this->department = $department;
     }
 
 

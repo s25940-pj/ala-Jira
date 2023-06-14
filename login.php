@@ -1,30 +1,12 @@
 <?php
 include "header.php";
 
-function checkUserExists($username): bool
-{
-    global $conn;
-
-    $query = "SELECT * FROM User WHERE username = '$username'";
-    $matchingUsers = $conn->query($query);
-
-    return $matchingUsers->num_rows > 0;
-}
-
-function validateUser($username, $password): bool
-{
-    global $conn;
-
-    $query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($query);
-
-    return $result->num_rows > 0;
-}
+global $CONN;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $userExists = checkUserExists($username);
+    $userExists = checkUserExistsByUsername($username);
 
     if (!$userExists) {
         header("Location: register.php");
@@ -35,8 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
     if ($userIsValid) {
         $query = "SELECT * FROM User WHERE username = '$username' AND password = '$password'";
-        $userData = $conn->query($query)->fetch_assoc();
-        $user = new User($userData['username'], $userData['email'], $userData['password'], $userData['name'], $userData['surname']);
+        $userData = $CONN->query($query)->fetch_assoc();
+        $userRole = Role::from($userData['role']);
+        $userDepartment = Department::from($userData['department']);
+        $user = new User($userData['username'], $userData['email'], $userData['password'], $userData['name'], $userData['surname'], $userRole, $userDepartment);
         $_SESSION['user'] = $user;
 
         header("Location: index.php");
