@@ -110,3 +110,12 @@ function checkUserExistsByUsername(string $username): bool
 
     return $matchingUsers->num_rows > 0;
 }
+
+function resetUserPassword(int $userId, string $newPassword): void
+{
+    global $CONN;
+
+    $query = "UPDATE User SET password = '$newPassword' WHERE id = $userId";
+
+    $CONN->query($query);
+}

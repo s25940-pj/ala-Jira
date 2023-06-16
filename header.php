@@ -30,6 +30,7 @@ if (!$USER_IS_LOGGED_IN) {
 } else {
     $USER = $_SESSION['user'];
     echo "<a href='logout.php'>Logout</a>";
+    echo "<a href='reset_password.php'>Reset Password</a>";
     echo "<br>";
     echo "<a href='add_ticket.php'>Add Ticket</a>";
     echo "<p><strong>User: </strong>" . $USER->getUsername() .  "</p>";

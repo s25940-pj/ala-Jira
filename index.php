@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     else if (isset($_POST['view_user_assigned'])) {
         $username = getUsernameById(getUserId($USER));
         $query = "SELECT * FROM Ticket WHERE assignee = '$username'";
-        echo "<p>KUTAS</p>";
     }
     else {
         $priority = intval($_POST['priority']);
@@ -102,6 +101,7 @@ if ($USER_IS_LOGGED_IN && getRoleName($USER->getRole()->value) == "Admin") {
                 $userDepartment = getDepartmentName($USER->getDepartment()->value);
 
                 if ($userRole == "Admin" || ($userRole == "Head of Department" && $userDepartment == $ticketDepartment)) {
+                    echo "<td><a href='edit_ticket.php?ticket_id=" . $row['id'] . "'>Edit</a></td>";
                     echo "<td><a href='delete_ticket.php?ticket_id=" . $row['id'] . "'>Delete</a></td>";
                 }
             }
